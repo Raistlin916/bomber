@@ -151,8 +151,8 @@
 		return this.store;
 	}
   GridStore.prototype.offset = function (spos, dpos) {
-    return [parseInt((spos[0]-dpos[0])/this.size[0]),
-          parseInt((spos[1]-dpos[1])/this.size[1])];
+    return [~~((spos[0]-dpos[0])/this.size[0]),
+          ~~((spos[1]-dpos[1])/this.size[1])];
   }
 	GridStore.prototype.sniffing = function (tCool, tRange) {
 		var cool, self = this;

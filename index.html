@@ -7,15 +7,24 @@
 			overflow: hidden;
 		}
 		canvas {
-			border: 1px solid grey;
+			display: block;
+			margin: 0 100px;
+			background: grey;
+		}
+		#messages {
+			position: fixed;
+			top: 20px;
+			right: 20px;
+			width: 500px;
+			word-wrap: break-word;
+			max-height: 400px;
 		}
 	</style>
 </head>
 <body>
 	<canvas></canvas>
-	<script src=></script>
+	<div id="messages"></div>
 	<script src="scripts/efficacy.js"></script>
-	<script src="scripts/component.js"></script>
 	<script src="scripts/component.js"></script>
 	<script src="scripts/util.js"></script>
 	<script src="scripts/init.js"></script>

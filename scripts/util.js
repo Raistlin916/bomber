@@ -25,6 +25,8 @@
 		};
 	})();
 
+	
+
 	exports.foil = foil;
 	window.requestAnimFrame = requestAnimFrame;
 })( bomb );

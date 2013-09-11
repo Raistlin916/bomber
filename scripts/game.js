@@ -2,7 +2,6 @@
 
 
 (function( exports ){
-	var T = 1000/60;
 
 	var spriteFactory = exports.spriteFactory
 		, unitFactory = exports.unitFactory
@@ -13,17 +12,32 @@
 		, gridStore = exports.gridStore
 		, Camera = exports.Camera;
 
-	resource.load({
-		bomb: 'images/bomb_64x64_2.png',
-		normal: 'images/character_gold_dee.png',
-		nyan: 'images/nyan.png',
-		explosion: 'images/explosion.png',
-		tile: 'images/tileset_12_31.png'
-	}, function( res ){
-		listenInput();
-		var canvas = document.querySelector('canvas');
-		game( canvas, res );
-	});
+	var eMessages = document.getElementById('messages');
+	resource.onprogress = function(c, a, n){
+		var p = document.createElement('div');
+		p.innerHTML = ~~(c/a*100)+'% loaded ' + n;
+		eMessages.appendChild(p);
+	};
+
+	resource.load(
+		[
+			"scripts/efficacy.js"
+			, "scripts/component.js"
+			, "scripts/util.js"
+			, "scripts/init.js"
+			, "scripts/game.js"
+		]
+		,{
+			bomb: 'images/bomb_64x64_2.png'
+			, normal: 'images/character_gold_dee.png'
+			, nyan: 'images/nyan.png'
+			, explosion: 'images/explosion.png'
+			, tile: 'images/tileset_12_31.png'
+		}, function(res) {
+			listenInput();
+			var canvas = document.querySelector('canvas');
+			game(canvas, res);
+		});
 
 	var platform = {
 		build: function( name, pos ){
@@ -158,7 +172,7 @@
 			
 			tile.update(dt);
 
-			gridStore.depository().slice().forEach(function( u ){
+			gridStore.depository().slice().reverse().forEach(function( u ){
 				u.update(dt);
 			});
 
