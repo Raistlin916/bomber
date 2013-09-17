@@ -7,37 +7,33 @@
 		, unitFactory = exports.unitFactory
 		, spriteMap = exports.spriteMap
 		, inputBoard = exports.inputBoard
-		, resource =  exports.resource
 		, Tile = exports.Tile
 		, gridStore = exports.gridStore
 		, Camera = exports.Camera;
 
-	var eMessages = document.getElementById('messages');
-	resource.onprogress = function(c, a, n){
-		var p = document.createElement('div');
-		p.innerHTML = ~~(c/a*100)+'% loaded ' + n;
-		eMessages.appendChild(p);
-	};
 
-	resource.load(
-		[
-			"scripts/efficacy.js"
-			, "scripts/component.js"
-			, "scripts/util.js"
-			, "scripts/init.js"
-			, "scripts/game.js"
-		]
-		,{
-			bomb: 'images/bomb_64x64_2.png'
-			, normal: 'images/character_gold_dee.png'
-			, nyan: 'images/nyan.png'
-			, explosion: 'images/explosion.png'
-			, tile: 'images/tileset_12_31.png'
-		}, function(res) {
+	function flat(array, pkey, tkey){
+    var r = {};
+    array.forEach(function(item){
+      r[item[pkey]] = item[tkey];
+    });
+    return r;
+  }
+
+	resource.then(function(res){
+			res = flat(res, 'name', 'ins');
 			listenInput();
 			var canvas = document.querySelector('canvas');
 			game(canvas, res);
-		});
+		})/*.progress(function(sig){
+			var c = resource.currentLoaded
+			, t = resource.totalLength
+			, p = document.createElement('div');
+
+			p.innerHTML = ~~(c/t*100)+'% loaded ' + sig.src;
+			eMessages.appendChild(p);
+		});*/
+	var eMessages = document.getElementById('messages');
 
 	var platform = {
 		build: function( name, pos ){

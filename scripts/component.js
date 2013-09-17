@@ -1,5 +1,5 @@
 "use strict";
-var bomb = {};
+
 
 var DEBUG = {
   spriteRect: false,
@@ -7,13 +7,7 @@ var DEBUG = {
 };
 
 (function ( exports ){
-  function getExt(p){
-    if(~p.indexOf('.')){
-      return p.split('.').pop();
-    } else {
-      return null;
-    }
-  }
+  
   var spriteFactory = {
     bind: function( ctx, res ){
       this.ctx = ctx;
@@ -173,43 +167,7 @@ var DEBUG = {
   })();
 
 
-  var resource = (function(){
-    return {
-      load: function(syncList, resList, cb) {
-        var resIns, insList = {}, src, self = this
-        , l = cl();
-
-        // current length
-        function cl(){
-          return Object.keys(resList).length;
-        }
-
-        function toCreate(ext, src){
-          if(ext == 'js'){
-
-          }
-        }
-
-        function toLoad(name, src) {
-          return function(){
-            delete resList[name];
-            self.onprogress && self.onprogress(l-cl(), l, src);
-            if(cl() == 0){
-              cb(insList);
-            }
-          }
-        }
-
-        for(var name in resList){
-          src = resList[name];
-          resIns = new Image;
-          insList[name] = resIns;
-          resIns.onload = toLoad(name, src);
-          resIns.src = src;
-        }
-      }
-    }
-  })();
+  
 
   var unitFactory = {
       bind: function( spriteMap, actionMap, store ){
