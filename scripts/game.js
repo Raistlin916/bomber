@@ -20,11 +20,10 @@
     return r;
   }
 
-	resource.then(function(res){
+	exports.resource.then(function(res){
 			res = flat(res, 'name', 'ins');
 			listenInput();
-			var canvas = document.querySelector('canvas');
-			game(canvas, res);
+			game(document.querySelector('canvas'), res);
 		})/*.progress(function(sig){
 			var c = resource.currentLoaded
 			, t = resource.totalLength

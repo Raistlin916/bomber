@@ -1,11 +1,5 @@
 "use strict";
 
-
-var DEBUG = {
-  spriteRect: false,
-  grid: false
-};
-
 (function ( exports ){
   
   var spriteFactory = {
@@ -333,7 +327,6 @@ var DEBUG = {
   exports.spriteFactory = spriteFactory;
   exports.sheetMaker = sheetMaker;
   exports.inputBoard = inputBoard;
-  exports.resource = resource;
   exports.Grid = Grid;
   exports.Tile = Tile;
   exports.unitFactory = unitFactory;

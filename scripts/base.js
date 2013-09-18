@@ -1,7 +1,7 @@
 "use strict";
 var bomb = {};
 
-(function(){
+(function(exports){
 
   function getExt(p){
     if(p == null){
@@ -50,56 +50,42 @@ var bomb = {};
           }
         }
 
-        function pLoad(name, src){
-          var res = createRes(src)
-          , d = sp.defer();
-          res.loaded(function(){
-            d.resolve({name: name, ins: res.ins, src: src});
-          });
-          return d.promise;
+        function pLoad(name, src, n){
+          return function(){
+            var res = createRes(src)
+            , d = sp.defer();
+            res.loaded(function(){
+              d.resolve({name: name, ins: res.ins, src: src});
+              console.log(name);
+            });
+            return d.promise;
+          }
         }
 
         var ps = [];
         for(var name in resList){
           (function(name, resList){
-            ps.push(function(){
-              return pLoad(name, resList[name])
-            });
+            ps.push(pLoad(name, resList[name]));
           })(name, resList);
         }
 
-        var sl = syncList.map(function(src){
+        var sl = syncList.map(function(src, n){
           return pLoad(src, src);
         });
-       
-        var pp = sp.waterfall(sl)
-            .then(function(){
-              console.log('done');
-            }, function(){
-              console.log('fail');
-            });
 
-
-
-        return sp.all(ps);
+        return sp.waterfall(sl)
+                  .then(function(){
+                    return sp.all(ps)
+                  })
+                  .then(function(res){
+                    console.log('done');
+                    return res;
+                  }, function(){
+                    console.log('fail');
+                  });
       }
     };
 
+  exports.resource = resource;
 
-
-  window.resource = resource.load(
-    [
-      "scripts/efficacy.js"
-      , "scripts/component.js"
-      , "scripts/util.js"
-      , "scripts/init.js"
-      , "scripts/game.js"
-    ]
-    , {
-        bomb: 'images/bomb_64x64_2.png'
-        , normal: 'images/character_gold_dee.png'
-        , nyan: 'images/nyan.png'
-        , explosion: 'images/explosion.png'
-        , tile: 'images/tileset_12_31.png'
-    })
-})();
+})(bomb);
