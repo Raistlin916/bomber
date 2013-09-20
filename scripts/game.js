@@ -20,19 +20,13 @@
     return r;
   }
 
-	exports.resource.then(function(res){
-			res = flat(res, 'name', 'ins');
-			listenInput();
-			game(document.querySelector('canvas'), res);
-		})/*.progress(function(sig){
-			var c = resource.currentLoaded
-			, t = resource.totalLength
-			, p = document.createElement('div');
+	var app = exports.app;
 
-			p.innerHTML = ~~(c/t*100)+'% loaded ' + sig.src;
-			eMessages.appendChild(p);
-		});*/
-	var eMessages = document.getElementById('messages');
+	app.start(function(res){
+		res = flat(res, 'name', 'ins');
+		listenInput();
+		game(document.querySelector('canvas'), res);
+	});
 
 	var platform = {
 		build: function( name, pos ){

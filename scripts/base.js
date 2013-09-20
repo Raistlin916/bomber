@@ -43,6 +43,7 @@ var bomb = {};
             ins: ins,
             loaded: function(onloaded){
               ins.addEventListener('load', function(){
+                self.currentLoaded ++;
                 onloaded();
               });
               ins[srcKey] = src;
@@ -55,8 +56,8 @@ var bomb = {};
             var res = createRes(src)
             , d = sp.defer();
             res.loaded(function(){
+              d.notify({src: name});
               d.resolve({name: name, ins: res.ins, src: src});
-              console.log(name);
             });
             return d.promise;
           }
@@ -74,15 +75,15 @@ var bomb = {};
         });
 
         return sp.waterfall(sl)
-                  .then(function(){
-                    return sp.all(ps)
-                  })
-                  .then(function(res){
-                    console.log('done');
-                    return res;
-                  }, function(){
-                    console.log('fail');
-                  });
+              .then(function(){
+                return sp.all(ps);
+              })
+              .then(function(res){
+                console.log('done');
+                return res;
+              }, function(){
+                console.log('fail');
+              });
       }
     };
 
