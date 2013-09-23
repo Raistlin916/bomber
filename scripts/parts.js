@@ -1,9 +1,11 @@
-(function( exports ){
-	var spriteFactory = exports.spriteFactory
-	, sheetMaker = exports.sheetMaker
-	, unitFactory = exports.unitFactory
-	, Grid = exports.Grid
-	, foil = exports.foil;
+app.add('parts', function(require, exports, module){
+	var component = require('component');
+	
+	var spriteFactory = component.spriteFactory
+	, sheetMaker = component.sheetMaker
+	, unitFactory = component.unitFactory
+	, Grid = component.Grid
+	, foil = component.foil;
 
 	var userSprite = spriteFactory.build('normal', {
 		right: sheetMaker.row(0,42,42,4),
@@ -174,4 +176,4 @@
 	exports.GridStore = GridStore;
 	exports.gridStore = gridStore;
 	exports.spriteMap = spriteMap;
-})( bomb );
+});

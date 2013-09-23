@@ -1,15 +1,12 @@
-var DEBUG = {
-  spriteRect: false,
-  grid: false
-};
-(function(exports){
-  var resource = exports.resource;
-  var app = resource.load(
+app.add('loader', function(require, exports, module){
+  var resource =  require('base').resource;
+
+  var loader = resource.load(
     [
-      "scripts/efficacy.js"
+      "scripts/util.js"
+      , "scripts/efficacy.js"
       , "scripts/component.js"
-      , "scripts/util.js"
-      , "scripts/init.js"
+      , "scripts/parts.js"
       , "scripts/game.js"
     ]
     , {
@@ -29,9 +26,7 @@ var DEBUG = {
 
     var eMessages = document.getElementById('messages');
 
-    app.start = app.then;
+    loader.onload = loader.then;
 
-    exports.app = app;
-
-  
-})(bomb);
+    module.exports = loader;
+});

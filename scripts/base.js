@@ -1,8 +1,72 @@
 "use strict";
-var bomb = {};
 
-(function(exports){
 
+(function(out){
+
+  var module = (function(){
+    var namespace = {};
+
+    function require(name){
+      var m = namespace[name];
+      return typeof m == 'object'?Object.create(m): m;
+    }
+
+    function isBlankObj(obj){
+      return Obejct.keys(obj).length == 0;
+    }
+
+    function extend(target) {
+      var source, key;
+      source = Array.prototype.slice.call(arguments, 1);
+      source.forEach(function(item){
+        for( key in item ){
+          target[key] = item[key];
+        }
+      });
+      return target;
+    }
+
+    function createModule(){
+      return {
+        add: function(name, fn){
+          var plat = {}, plate = {exports: plat};
+          namespace[name] = {};
+          fn(require, plat, plate);
+          if(plate.exports == plat){
+            extend(namespace[name], plat);
+          } else {
+            namespace[name] = plate.exports;
+          }
+        }, 
+        run: function(fn){
+          fn(require);
+        }
+      }
+    }
+
+
+    return {
+      create: function(name){
+        var m = createModule();
+        namespace[name] = m;
+        return m;
+      }
+    };
+  })();
+
+  out.module = module;
+
+})(this['module'] ? module.exports: this);
+
+
+var app = module.create('bomb');
+
+var DEBUG = {
+  spriteRect: false,
+  grid: false
+};
+
+app.add('base', function(require, exports, module){
   function getExt(p){
     if(p == null){
       return null;
@@ -23,20 +87,20 @@ var bomb = {};
         this.currentLoaded = 0;
 
         function createRes(src) {
-        	var ins, srcKey = 'src', ext = getExt(src);
+          var ins, srcKey = 'src', ext = getExt(src);
           if(ext == 'js'){
-          	ins = document.createElement('script');
+            ins = document.createElement('script');
             ins.addEventListener('load', function(){
               document.body.removeChild(ins);
               ins.onload = null;
             });
             document.body.appendChild(ins);
           } else if (!~['png, jpg'].indexOf(ext)){
-          	ins = new Image;
+            ins = new Image;
           } else if (ext == 'css'){
-          	ins = document.createElement('link');
-          	ins.rel = 'stylesheet';
-          	srcKey = 'href';
+            ins = document.createElement('link');
+            ins.rel = 'stylesheet';
+            srcKey = 'href';
           }
 
           return {
@@ -96,5 +160,4 @@ var bomb = {};
     };
 
   exports.resource = resource;
-
-})(bomb);
+});

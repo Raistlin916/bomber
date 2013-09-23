@@ -1,5 +1,4 @@
-"use strict";
-(function (exports){
+app.add('efficacy', function(require, exports, module){
 	var particleEffects = (function(){
 			function initOffScreen(imageData, dw ,dh){
 				var canvasOff = document.createElement('canvas');
@@ -128,5 +127,5 @@
 		}
 		
 	exports.particleEffects = particleEffects;
+});
 
-})(window);
