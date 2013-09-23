@@ -1,15 +1,19 @@
 "use strict";
 
+app.run(function(require, exports, module){
+	var component = require('component')
+	, parts = require('parts')
+	, loader = require('loader');
 
-(function( exports ){
+	
+	var spriteFactory = component.spriteFactory
+		, unitFactory = component.unitFactory
+		, Camera = component.Camera
+		, Tile = component.Tile
+		, inputBoard = component.inputBoard;
 
-	var spriteFactory = exports.spriteFactory
-		, unitFactory = exports.unitFactory
-		, spriteMap = exports.spriteMap
-		, inputBoard = exports.inputBoard
-		, Tile = exports.Tile
-		, gridStore = exports.gridStore
-		, Camera = exports.Camera;
+	var spriteMap = parts.spriteMap
+		, gridStore = parts.gridStore;
 
 
 	function flat(array, pkey, tkey){
@@ -20,9 +24,7 @@
     return r;
   }
 
-	var app = exports.app;
-
-	app.start(function(res){
+	loader.onload(function(res){
 		res = flat(res, 'name', 'ins');
 		listenInput();
 		game(document.querySelector('canvas'), res);
@@ -197,5 +199,4 @@
 			return key;
 		}
 	}
-
-})( bomb );
+});

@@ -1,5 +1,4 @@
-(function( exports ){
-	
+app.add('util', function(require, exports, module){
 	var foil = (function(){
 		function u( i ){
 			return i>0?i:0;
@@ -25,8 +24,6 @@
 		};
 	})();
 
-	
-
 	exports.foil = foil;
 	window.requestAnimFrame = requestAnimFrame;
-})( bomb );
+});

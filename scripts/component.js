@@ -1,7 +1,4 @@
-"use strict";
-
-(function ( exports ){
-  
+app.add('component', function(require, exports, module){
   var spriteFactory = {
     bind: function( ctx, res ){
       this.ctx = ctx;
@@ -331,4 +328,4 @@
   exports.Tile = Tile;
   exports.unitFactory = unitFactory;
   exports.Camera = Camera;
-})( bomb );
+});
