@@ -110,8 +110,6 @@
 					}
 				}
 
-			
-
 			return {
 				create: function(name, imageData, dw, dh, opt){
 					var ctxOff = initOffScreen(imageData, dw, dh);
@@ -121,8 +119,6 @@
 			}
 		})();
 
-
-
 		function copyImageData(ctx, src, bCopy){
 			var dst = ctx.createImageData(src.width, src.height);
 			if(bCopy !== false){
@@ -130,21 +126,7 @@
 			}
 			return dst;
 		}
-
-
 		
 	exports.particleEffects = particleEffects;
 
 })(window);
-
-var log = (function(){
-			var count = 0;
-			return function(){
-				if( count < 50){
-					console.log.apply(console, arguments);
-					count ++;
-				}
-			}
-		})();
-
-		

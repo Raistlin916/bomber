@@ -47,6 +47,11 @@ var bomb = {};
                 onloaded();
               });
               ins[srcKey] = src;
+            },
+            fail: function(f){
+              ins.addEventListener('error', function(){
+                f && f();
+              });
             }
           }
         }
@@ -58,6 +63,9 @@ var bomb = {};
             res.loaded(function(){
               d.notify({src: name});
               d.resolve({name: name, ins: res.ins, src: src});
+            });
+            res.fail(function(){
+              d.reject(name+' loaded fail');
             });
             return d.promise;
           }
