@@ -8,7 +8,7 @@
 
     function require(name){
       var m = namespace[name];
-      return typeof m == 'object'?Object.create(m): m;
+      return typeof m == 'object'? Object.create(m): m;
     }
 
     function isBlankObj(obj){

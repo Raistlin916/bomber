@@ -1,11 +1,15 @@
 app.add('parts', function(require, exports, module){
-	var component = require('component');
+	var component = require('component')
+	, util = require('util')
+	, efficacy = require('efficacy');
 	
 	var spriteFactory = component.spriteFactory
 	, sheetMaker = component.sheetMaker
 	, unitFactory = component.unitFactory
 	, Grid = component.Grid
-	, foil = component.foil;
+	, foil = util.foil
+	, particleEffects = efficacy.particleEffects;
+
 
 	var userSprite = spriteFactory.build('normal', {
 		right: sheetMaker.row(0,42,42,4),
