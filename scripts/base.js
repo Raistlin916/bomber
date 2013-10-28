@@ -82,7 +82,7 @@ app.add('base', function(require, exports, module){
       totalLength: null,
       currentLoaded: null,
       load: function(syncList, resList, cb) {
-        var res, insList = {}, src, self = this;
+        var res, src, self = this;
         this.totalLength = syncList.length + Object.keys(resList).length;
         this.currentLoaded = 0;
 
@@ -125,7 +125,7 @@ app.add('base', function(require, exports, module){
             var res = createRes(src)
             , d = sp.defer();
             res.loaded(function(){
-              d.notify({src: name});
+              d.notify({name: src});
               d.resolve({name: name, ins: res.ins, src: src});
             });
             res.fail(function(){

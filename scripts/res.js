@@ -20,7 +20,7 @@ app.add('loader', function(require, exports, module){
       , t = resource.totalLength
       , p = document.createElement('div');
 
-      p.innerHTML = ~~(c/t*100)+'% loaded ' + sig.src;
+      p.innerHTML = ~~(c/t*100)+'% loaded ' + sig.name;
       eMessages.appendChild(p);
     });
 
